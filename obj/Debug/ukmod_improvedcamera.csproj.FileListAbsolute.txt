@@ -81,3 +81,5 @@ D:\games\ultrakill modding\projects\ukmod_improvedcamera\obj\Debug\ukmod_improve
 D:\games\ultrakill modding\projects\ukmod_improvedcamera\obj\Debug\ukmod_im.B6CA5F0E.Up2Date
 D:\games\ultrakill modding\projects\ukmod_improvedcamera\obj\Debug\ukmod_improvedcamera.dll
 D:\games\ultrakill modding\projects\ukmod_improvedcamera\obj\Debug\ukmod_improvedcamera.pdb
+D:\games\ultrakill modding\projects\ukmod_improvedcamera\bin\Debug\PluginConfigurator.dll
+D:\games\ultrakill modding\projects\ukmod_improvedcamera\bin\Debug\PluginConfiguratorComponents.dll

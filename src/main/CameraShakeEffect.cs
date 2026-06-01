@@ -1,5 +1,4 @@
 ﻿
-using BepInEx.Logging;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,9 +38,9 @@ namespace ukmod_improvedcamera.src.main
             if (IsDestroyed()) return Vector3.zero;
 
             float timeValue = Age * Frequency;
-            float x = Mathf.Sin(timeValue);
-            float y = Mathf.Cos(timeValue / 2);
-            float z = Mathf.Sin(timeValue / 2);
+            float x = Mathf.Sin(timeValue) * MainPluginModule.pluginConfigVar.screenshakePitch.value;
+            float y = Mathf.Cos(timeValue / 2) * MainPluginModule.pluginConfigVar.screenshakeYaw.value;
+            float z = Mathf.Sin(timeValue / 2) * MainPluginModule.pluginConfigVar.screenshakeRoll.value;
 
             float envelope = 1f;
 
@@ -65,12 +64,21 @@ namespace ukmod_improvedcamera.src.main
         private List<CameraShakeInstance> activeShakes = new List<CameraShakeInstance>();
         public void StartBasicShake( float shakeAmount )
         {
-            CameraShakeInstance newShake = new CameraShakeInstance(shakeAmount / 2, 150, Mathf.Max(shakeAmount / 3, 0.5f), 0.05f, 0.275f);
+            CameraShakeInstance newShake = new CameraShakeInstance(shakeAmount / 2, MainPluginModule.pluginConfigVar.screenshakeFrequency.value, Mathf.Max(shakeAmount / 3, 0.5f), 0.05f, 0.275f);
             activeShakes.Add(newShake);
         }
         public void StartShake(float amplitude, float frequency, float duration, float fadein, float fadeout)
         {
-            CameraShakeInstance newShake = new CameraShakeInstance(amplitude, frequency, duration, fadein, fadeout);
+            CameraShakeInstance newShake;
+            if (frequency == -1)
+            {
+                newShake = new CameraShakeInstance(amplitude, MainPluginModule.pluginConfigVar.screenshakeFrequency.value, duration, fadein, fadeout);
+            }
+            else
+            {
+                newShake = new CameraShakeInstance(amplitude, frequency, duration, fadein, fadeout);
+            }
+
             activeShakes.Add(newShake);
         }
         void Update()
@@ -91,8 +99,11 @@ namespace ukmod_improvedcamera.src.main
                     totalOffset += shake.GetCurrentOffset();
                 }
             }
-            totalOffset *= MonoSingleton<PrefsManager>.Instance.GetFloat("screenShake", 0f);
-            MonoSingleton<CameraMovementController>.Instance.currentFrameVectorList.Add(totalOffset);
+            totalOffset *= MainPluginModule.pluginConfigVar.screenshakeMaster.value;
+            if (MainPluginModule.pluginConfigVar.enabledScreenshake.value)
+            {
+                MonoSingleton<CameraMovementController>.Instance.currentFrameVectorList.Add(totalOffset);
+            }
         }
     }
 }

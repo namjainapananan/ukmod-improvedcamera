@@ -57,6 +57,12 @@
     <Reference Include="BepInEx">
       <HintPath>refs\bepinex\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="PluginConfigurator">
+      <HintPath>refs\PluginConfigurator\PluginConfigurator.dll</HintPath>
+    </Reference>
+    <Reference Include="PluginConfiguratorComponents">
+      <HintPath>refs\PluginConfigurator\PluginConfiguratorComponents.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>refs\unityengine\UnityEngine.dll</HintPath>
     </Reference>
